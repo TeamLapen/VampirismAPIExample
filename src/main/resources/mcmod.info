@@ -1,0 +1,16 @@
+[
+{
+  "modid": "vampirism-api-example",
+  "name": "Vampirism API Example",
+  "description": "Example mod for Vampirism's API.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ExampleDude"],
+  "credits": "Maxanier",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
