@@ -67,7 +67,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     //Depend on a decompiled version of Vampirism
-    deobfProvided 'de.teamlapen.vampirism:Vampirism:1.10.2-1.0.0-alpha+09-08-15-32:api'
+    deobfProvided 'de.teamlapen.vampirism:Vampirism:1.10.2-1.0.0:api'
     //If you want to have Vampirism in your debug environment, but don't want to manually add it in your debug mods folder remove ':api'. But ONLY refer to classes in de.teamlapen.vampirism.api anyway.
     //Check https://maxanier.de/maven2/de/teamlapen/vampirism for latest version
 
