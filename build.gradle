@@ -7,28 +7,29 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
 
 
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+
+configurations {
+    optionalRuntime
+    runtime.extendsFrom optionalRuntime // optionalRuntime dependencies are downloaded but not exported to POM
+}
 
 version = "1.0" // Your mod version
 group = "de.maxanier.vampirismapiexample" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "vampirism-api-example"
 
-sourceCompatibility = targetCompatibility = "1.7" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.7"
-}
-
-minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
-
-
-    mappings = "snapshot_20160518"
+    sourceCompatibility = targetCompatibility = "1.8"
 }
 
 repositories {
@@ -49,29 +50,73 @@ repositories {
     }
 }
 dependencies {
+    minecraft([
+            group: "net.minecraftforge",
+            name: "forge",
+            version: "${project.minecraft_version}-${project.forge_version}"
+    ])
     //compile against the Vampirism API
-    deobfCompile "de.teamlapen.vampirism:Vampirism:${mc_version}-${vampirism_version}:api"
+    compileOnly fg.deobf("de.teamlapen.vampirism:Vampirism:${minecraft_version}-${vampirism_version}:api")
     // Version is taken from gradle.properties
     //at runtime (in your development environment) use the full Vampirism jar
-    runtime "de.teamlapen.vampirism:Vampirism:${mc_version}-${vampirism_version}"
+    runtimeOnly fg.deobf("de.teamlapen.vampirism:Vampirism:${minecraft_version}-${vampirism_version}")
+
+
+    //runtimeOnly fg.deobf("de.maxanier.guideapi:Guide-API-VP:1.14.4-2.2.0")
 }
 
-processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+minecraft {
+    mappings channel: "${project.mcp_channel}".toString(), version: "${project.mcp_mappings}".toString()
 
-                // replace version and mcversion
-                expand 'version': project.version, 'mcversion': project.minecraft.version
+    runs {
+        client {
+            taskName 'runClient1'
+            main 'net.minecraftforge.userdev.LaunchTesting'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            workingDirectory project.file('run/client1').canonicalPath
+            
+            mods {
+                "vampirism-api-example" {
+                    source sourceSets.main
+                }
             }
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
+        }
+        server = {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            workingDirectory project.file('run/server').canonicalPath
+
+            mods {
+                'vampirism-api-example' {
+                    source sourceSets.main
+                }
+
+
             }
         }
+    }
+
+}
+
+
+processResources {
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        expand 'version': project.mod_version, 'mcversion': minecraft_version, 'forge_version': forge_version
+    }
+
+
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+    outputs.upToDateWhen { false }
+
+    exclude '**/Thumbs.db'
+}
+
