@@ -1,0 +1,2 @@
+#Set blood value for our cow
+vampirism-api-example:supercow=50

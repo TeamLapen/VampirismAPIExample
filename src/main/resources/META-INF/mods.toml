@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[27,)"
+
+[[mods]]
+    modId="vampirism-api-example"
+    namespace="vampirism-api-example"
+    version="${version}"
+    displayName="Vampirism-API-Example"
+    authors="Maxanier"
+    description="Example"
+    [[dependencies.vampirism-api-example]]
+        modId="forge"
+        mandatory=true
+        versionRange="[${forge_version},)"
+        ordering="NONE"
+        side="BOTH"
+    [[dependencies.vampirism-api-example]]
+        modId="vampirism"
+        mandatory=false
+        versionRange="[${vampirism_version},)"
+        ordering="AFTER"
+        side="BOTH"

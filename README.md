@@ -1,9 +1,8 @@
-**Vampirism API Mod Example**
+**Vampirism API Mod Example** - Minecraft 1.14
 ======================================
 
 This is just an example for a mod that can interact with Vampirism's API if Vampirism is installed.
-It also runs if Vampirism is not installed.
-I created it to test the system and then thought, why not upload it as an example.
+It also runs without Vampirism and adds a "super cow entity" which can be converted if Vampirism is installed.
 
 This example mod does not require Vampirism to be installed. Check out the other examples for a addon style mod example.  
 
