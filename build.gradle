@@ -62,7 +62,7 @@ dependencies {
     runtimeOnly fg.deobf("de.teamlapen.vampirism:Vampirism:${minecraft_version}-${vampirism_version}")
 
 
-    //runtimeOnly fg.deobf("de.maxanier.guideapi:Guide-API-VP:1.14.4-2.2.0")
+    runtimeOnly fg.deobf("de.maxanier.guideapi:Guide-API-VP:1.15.2-2.2.0-beta.1")
 }
 
 

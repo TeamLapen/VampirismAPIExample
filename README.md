@@ -1,4 +1,4 @@
-**Vampirism API Mod Example** - Minecraft 1.14
+**Vampirism API Mod Example** - Minecraft 1.15
 ======================================
 
 This is just an example for a mod that can interact with Vampirism's API if Vampirism is installed.

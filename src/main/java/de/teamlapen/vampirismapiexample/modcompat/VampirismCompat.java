@@ -25,8 +25,6 @@ public class VampirismCompat {
         Mark the super cow as convertible using vampirism standard converting handler and vampirism's cow overlay
          You probably want to add a own overlay for you creature and maybe even a own {@link de.teamlapen.vampirism.api.entity.convertible.IConvertingHandler}
          */
-        VampirismAPI.entityRegistry().addConvertible(supercow, SuperCowEntity.class, new ResourceLocation("vampirism", "textures/entity/vanilla/cow_overlay.png"));
-
-
+        VampirismAPI.entityRegistry().addConvertible(supercow, new ResourceLocation("vampirism", "textures/entity/vanilla/cow_overlay.png"));
     }
 }
